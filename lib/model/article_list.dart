@@ -1,23 +1,20 @@
 import 'package:testing_practice/model/article.dart';
 
-enum SortType {
-  latest,
-  popular,
-}
-
 class ArticleList {
-  final list = <Article>[];
+  final List<Article> list;
 
-  var sortType = SortType.popular;
+  const ArticleList(this.list);
 
   List<Article> get dataSource {
-    return list; // TODO: sort
+    list.sort((article1, article2) => article2.likeCount - article1.likeCount);
+    return list;
   }
 
   int get totalLikeCount {
-    return -1; // TODO: count
+    return list.fold(0, (current, next) => current + next.likeCount);
   }
 
-  void append(Article article) {
+  void add(Article article) {
+    list.add(article);
   }
 }
